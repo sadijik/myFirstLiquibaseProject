@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet id="v01-1" author="AlexanderKaravanov">
+        <createTable tableName="ITEMS">
+            <column name="id" type="java.lang.Long" autoIncrement="true">
+                <constraints  primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v01-2" author="AlexanderKaravanov">
+        <createTable tableName="TOWENS">
+            <column name="id" type="java.lang.Long" autoIncrement="true">
+                <constraints  primaryKey="true" nullable="false"/>
+            </column>
+            <column name="town_name" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v01-3" author="AlexanderKaravanov">
+        <createTable tableName="SHIPPINGS">
+
+            <column name="id" type="java.lang.Long" autoIncrement="true">
+                <constraints  primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start_data" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_data" type="date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="item_id" type="java.lang.Long">
+                <constraints nullable="true" foreignKeyName="fk_shippings_items" references="items(id)" />
+            </column>
+            <column name="towen_id" type="java.lang.Long">
+                <constraints  nullable="true" foreignKeyName="fk_shippings_towens" references="towens(id)" />
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+</databaseChangeLog>
