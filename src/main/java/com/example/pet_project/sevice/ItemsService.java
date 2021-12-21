@@ -1,28 +1,25 @@
 package com.example.pet_project.sevice;
 
 import com.example.pet_project.entity.Items;
-import com.example.pet_project.entity.Shippings;
-import com.example.pet_project.exeprion.DataStartAfterDataEnsException;
 import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.repo.ItemsRepository;
-import com.example.pet_project.repo.ShippingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 
 
 @Service
 public class ItemsService {
-	@Autowired
-	private ShippingsRepository shippingsRepository;
+
+
+	private final ItemsRepository itemsRepository;
 
 	@Autowired
-	private ItemsRepository itemsRepository;
+	public ItemsService(ItemsRepository itemsRepository) {
+		this.itemsRepository = itemsRepository;
+	}
 
 	public Items createItems(Items items) {
 

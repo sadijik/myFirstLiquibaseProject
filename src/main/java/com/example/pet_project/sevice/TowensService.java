@@ -13,8 +13,12 @@ import java.util.stream.StreamSupport;
 @Service
 public class TowensService {
 
+	private final TowensRepository towensRepository;
+
 	@Autowired
-	private TowensRepository towensRepository;
+	public TowensService(TowensRepository towensRepository) {
+		this.towensRepository = towensRepository;
+	}
 
 	public Towens createTowens(Towens towens) {
 		return towensRepository.save(towens);

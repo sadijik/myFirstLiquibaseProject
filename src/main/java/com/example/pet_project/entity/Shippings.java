@@ -1,8 +1,6 @@
 package com.example.pet_project.entity;
 
 import lombok.*;
-
-
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -26,14 +24,12 @@ public class Shippings {
 	private LocalDate end_data;
 
 
-
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "item_id")
 	private Items item;
 
-     @OneToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "towen_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "towen_id")
 	private Towens towen;
 
 	public Items getItem() {

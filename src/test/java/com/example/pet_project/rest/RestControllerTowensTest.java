@@ -1,5 +1,6 @@
 package com.example.pet_project.rest;
 
+import com.example.pet_project.PetProjectApplicationTests;
 import com.example.pet_project.entity.Towens;
 import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.sevice.TowensService;
@@ -9,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-class RestControllerTowensTest {
+
+class RestControllerTowensTest extends PetProjectApplicationTests {
 	@Autowired
 	private TowensService towensService;
 

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.DateTimeException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +20,12 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v3")
 public class RestControllerShippings {
 
+	private final ShippingsService shippingsService;
+
 	@Autowired
-	private ShippingsService shippingsService;
+	public RestControllerShippings(ShippingsService shippingsService) {
+		this.shippingsService = shippingsService;
+	}
 
 	@GetMapping
 	public ResponseEntity<?> start() {
@@ -68,7 +71,7 @@ public class RestControllerShippings {
 	}
 
 
-	@PostMapping( "{shippingsId}/items/{itemId}/add")
+	@PostMapping("{shippingsId}/items/{itemId}/add")
 	public ResponseEntity<?> addItemToShippings(@PathVariable("shippingsId") final Long shippingsId,
 	                                            @PathVariable("itemId") final Long itemId) throws ElementNotFoundException {
 		Shippings shippings = shippingsService.addItemToShippings(shippingsId, itemId);
@@ -77,7 +80,7 @@ public class RestControllerShippings {
 
 	@PostMapping("{shippingsId}/towens/{towenId}/add")
 	public ResponseEntity<?> addTowenToShippings(@PathVariable("shippingsId") final Long shippingsId,
-			@PathVariable("towenId") final Long towenId) throws ElementNotFoundException {
+	                                             @PathVariable("towenId") final Long towenId) throws ElementNotFoundException {
 		Shippings shippings = shippingsService.addTowensToShippings(shippingsId, towenId);
 		return new ResponseEntity<>(ShippingsDto.toSippingslDto(shippings), HttpStatus.OK);
 	}

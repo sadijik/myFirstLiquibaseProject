@@ -1,20 +1,18 @@
 package com.example.pet_project.rest;
 
+
+import com.example.pet_project.PetProjectApplicationTests;
 import com.example.pet_project.entity.Items;
 import com.example.pet_project.exeprion.ElementNotFoundException;
-import com.example.pet_project.repo.ItemsRepository;
 import com.example.pet_project.sevice.ItemsService;
-import lombok.Builder;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.NoSuchElementException;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-class RestConrollerItemsTest {
+class RestConrollerItemsTest extends PetProjectApplicationTests {
 
 	@Autowired
 	private ItemsService itemsService;

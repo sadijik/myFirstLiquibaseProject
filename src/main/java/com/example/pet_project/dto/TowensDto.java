@@ -13,7 +13,7 @@ public class TowensDto {
 	private Integer distance;
 
 	public static TowensDto toModelTowens(Towens towens) {
-		TowensDto towensDto=new TowensDto();
+		TowensDto towensDto = new TowensDto();
 		towensDto.setId(towens.getId());
 		towensDto.setTown_name(towens.getTown_name());
 		towensDto.setDistance(towens.getDistance());
