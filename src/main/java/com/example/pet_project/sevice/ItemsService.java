@@ -5,6 +5,7 @@ import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.repo.ItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,18 @@ public class ItemsService {
 		this.itemsRepository = itemsRepository;
 	}
 
+	@Transactional
 	public Items createItems(Items items) {
 
 		return itemsRepository.save(items);
 	}
 
+	@Transactional(readOnly = true)
 	public Items firstByIdItems(Long id) throws ElementNotFoundException {
 		return itemsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент items id=" + id + " не найден"));
 	}
 
+	@Transactional(readOnly = true)
 	public List<Items> allItems() {
 		Iterable<Items> all = itemsRepository.findAll();
 		List<Items> list = new ArrayList<>();
@@ -37,7 +41,7 @@ public class ItemsService {
 		return list;
 	}
 
-
+	@Transactional
 	public String deleteItems(Long id) throws ElementNotFoundException {
 
 
@@ -48,12 +52,14 @@ public class ItemsService {
 
 	}
 
+	@Transactional
 	public Items patchItems(Long id, Items items) throws ElementNotFoundException {
 
 		Items wasItems = itemsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент items id=" + id + " не найден для обновления"));
 
 		wasItems.setItem_name(items.getItem_name());
 		wasItems.setQuantity(items.getQuantity());
+
 
 		return itemsRepository.save(wasItems);
 	}

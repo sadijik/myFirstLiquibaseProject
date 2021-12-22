@@ -9,6 +9,7 @@ import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.repo.ShippingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ShippingsService {
 		this.shippingsRepository = shippingsRepository;
 	}
 
+	@Transactional
 	public Shippings createShippings(Shippings shippings) throws DataStartAfterDataEnsException {
 		if (shippings.getEnd_data() == null) {
 			return shippingsRepository.save(shippings);
@@ -38,13 +40,14 @@ public class ShippingsService {
 		return shippingsRepository.save(shippings);
 	}
 
-
+	@Transactional(readOnly = true)
 	public Shippings firstByIdShippings(Long id) throws ElementNotFoundException {
 
 		return shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден"));
 
 	}
 
+	@Transactional(readOnly = true)
 	public List<Shippings> allShippings() {
 		List<Shippings> list = new ArrayList<>();
 		shippingsRepository.findAll().forEach(list::add);
@@ -52,6 +55,7 @@ public class ShippingsService {
 
 	}
 
+	@Transactional
 	public String deleteShippings(Long id) throws ElementNotFoundException {
 		Shippings shippings = shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден для удаления"));
 		shippingsRepository.delete(shippings);
@@ -59,7 +63,7 @@ public class ShippingsService {
 		return "данные Shippings id=" + id + " удалены";
 	}
 
-
+	@Transactional
 	public Shippings patchShippings(Long id, Shippings shippings) throws ElementNotFoundException {
 
 		Shippings wasShippings = shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден для обновления"));
