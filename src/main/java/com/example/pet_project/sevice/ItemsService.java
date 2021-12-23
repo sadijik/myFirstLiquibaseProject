@@ -48,7 +48,7 @@ public class ItemsService {
 		Items items = itemsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент items id=" + id + " не найден для удаления"));
 
 		itemsRepository.delete(items);
-		return "данные id=" + id + " items удалены ";
+		return "данные id=" + id + " items удалены";
 
 	}
 
