@@ -81,7 +81,7 @@ public class ShippingsService {
 		Items item = itemsService.firstByIdItems(itemId);
 
 		shippings.setItem(item);
-
+		//item.setShippings(shippings);
 
 		return shippingsRepository.save(shippings);
 	}
