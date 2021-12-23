@@ -70,6 +70,7 @@ class RestConrollerItemsTest extends PetProjectApplicationTests {
 
 	@Test
 	public void findByIdItemsTest() throws Exception {
+
 		Long id = createItem("car", 1).getId();
 
 		mvc.perform(MockMvcRequestBuilders.get("/api/v1/finditems{id}", id))

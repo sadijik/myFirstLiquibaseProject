@@ -59,6 +59,7 @@ class RestControllerShippingsTest extends PetProjectApplicationTests {
 
 	@Test
 	void createShippings() throws Exception {
+
 		Shippings shippings = createShippings(LocalDate.of(2010, 2, 12), LocalDate.of(2015, 3, 15));
 		assertNotNull(shippings.getStart_data());
 		assertNotNull(shippings.getEnd_data());

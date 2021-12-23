@@ -10,13 +10,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @AutoConfigureMockMvc
 public class PetProjectApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-	@Test
-	void testPetproject() {
-		String expectedMessage = "Hello Wolrd";
-
-	}
 
 }
