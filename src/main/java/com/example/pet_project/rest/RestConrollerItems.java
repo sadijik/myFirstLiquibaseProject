@@ -2,7 +2,6 @@ package com.example.pet_project.rest;
 
 import com.example.pet_project.dto.ItemsDto;
 import com.example.pet_project.entity.Items;
-import com.example.pet_project.exeprion.DataStartAfterDataEnsException;
 import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.sevice.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,12 @@ import java.util.stream.Collectors;
 public class RestConrollerItems {
 
 
+	private final ItemsService itemsService;
+
 	@Autowired
-	private ItemsService itemsService;
+	public RestConrollerItems(ItemsService itemsService) {
+		this.itemsService = itemsService;
+	}
 
 	@GetMapping
 	public ResponseEntity<?> start() {
@@ -62,7 +65,7 @@ public class RestConrollerItems {
 	}
 
 	@DeleteMapping("/deleteitems{id}")
-	public ResponseEntity<?> deleteItems(@PathVariable("id") Long id) throws ElementNotFoundException{
+	public ResponseEntity<?> deleteItems(@PathVariable("id") Long id) throws ElementNotFoundException {
 
 
 		return new ResponseEntity<>(itemsService.deleteItems(id), HttpStatus.OK);

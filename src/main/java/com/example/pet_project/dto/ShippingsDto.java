@@ -27,12 +27,12 @@ public class ShippingsDto {
 		shippingsDto.setEnd_data(shippings.getEnd_data());
 
 
-		if (shippings.getItem() == null && shippings.getTowen()==null) {
+		if (shippings.getItem() == null && shippings.getTowen() == null) {
 			return shippingsDto;
-		} else if (shippings.getItem()==null && shippings.getTowen()!=null) {
+		} else if (shippings.getItem() == null && shippings.getTowen() != null) {
 			shippingsDto.setTowensDto(TowensDto.toModelTowens(shippings.getTowen()));
 			return shippingsDto;
-		} else  if (shippings.getItem()!=null && shippings.getTowen()==null) {
+		} else if (shippings.getItem() != null && shippings.getTowen() == null) {
 			shippingsDto.setItemsDto(ItemsDto.toItemsDto(shippings.getItem()));
 			return shippingsDto;
 		}

@@ -1,10 +1,6 @@
 package com.example.pet_project.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
@@ -23,15 +19,13 @@ public class Items {
 	private Long id;
 
 
-
-	@Size(min=1,max = 30, message = "введите имя от 1 до 30 символов")
+	@Size(min = 1, max = 30, message = "введите имя от 1 до 30 символов")
 	private String item_name;
 	@Positive(message = "введите целое число > 0")
 	private Integer quantity;
 
-	@OneToOne(mappedBy = "item",fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "item", fetch = FetchType.EAGER)
 	private Shippings shippings;
-
 
 
 	public Shippings getShippings() {
@@ -41,7 +35,6 @@ public class Items {
 	public void setShippings(Shippings shippings) {
 		this.shippings = shippings;
 	}
-
 
 
 }

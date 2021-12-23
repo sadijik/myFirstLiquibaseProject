@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v2")
 public class RestControllerTowens {
+
+	private final TowensService towensService;
+
 	@Autowired
-	private TowensService towensService;
+	public RestControllerTowens(TowensService towensService) {
+		this.towensService = towensService;
+	}
 
 	@GetMapping
 	public ResponseEntity<?> start() {

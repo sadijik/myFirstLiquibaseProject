@@ -9,24 +9,27 @@ import com.example.pet_project.exeprion.ElementNotFoundException;
 import com.example.pet_project.repo.ShippingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
 public class ShippingsService {
-	@Autowired
-	private ItemsService itemsService;
-	@Autowired
-	private TowensService towensService;
-	@Autowired
-	private ShippingsRepository shippingsRepository;
+	private final ItemsService itemsService;
+	private final TowensService towensService;
+	private final ShippingsRepository shippingsRepository;
 
-	public Shippings createShippings(Shippings shippings) throws DataStartAfterDataEnsException   {
+	@Autowired
+	public ShippingsService(ItemsService itemsService, TowensService towensService, ShippingsRepository shippingsRepository) {
+		this.itemsService = itemsService;
+		this.towensService = towensService;
+		this.shippingsRepository = shippingsRepository;
+	}
+
+	@Transactional
+	public Shippings createShippings(Shippings shippings) throws DataStartAfterDataEnsException {
 		if (shippings.getEnd_data() == null) {
 			return shippingsRepository.save(shippings);
 		}
@@ -37,28 +40,30 @@ public class ShippingsService {
 		return shippingsRepository.save(shippings);
 	}
 
-
+	@Transactional(readOnly = true)
 	public Shippings firstByIdShippings(Long id) throws ElementNotFoundException {
 
 		return shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден"));
 
 	}
 
-		public List<Shippings> allShippings() {
-			List<Shippings> list = new ArrayList<>();
-			shippingsRepository.findAll().forEach(list::add);
-			return list;
+	@Transactional(readOnly = true)
+	public List<Shippings> allShippings() {
+		List<Shippings> list = new ArrayList<>();
+		shippingsRepository.findAll().forEach(list::add);
+		return list;
 
 	}
 
-	public String deleteShippings(Long id) throws  ElementNotFoundException {
+	@Transactional
+	public String deleteShippings(Long id) throws ElementNotFoundException {
 		Shippings shippings = shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден для удаления"));
 		shippingsRepository.delete(shippings);
 
 		return "данные Shippings id=" + id + " удалены";
 	}
 
-
+	@Transactional
 	public Shippings patchShippings(Long id, Shippings shippings) throws ElementNotFoundException {
 
 		Shippings wasShippings = shippingsRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Элемент shippings id=" + id + " не найден для обновления"));
@@ -80,10 +85,11 @@ public class ShippingsService {
 
 		return shippingsRepository.save(shippings);
 	}
+
 	public Shippings addTowensToShippings(Long shippingsId, Long towenId) throws ElementNotFoundException {
 
 		Shippings shippings = firstByIdShippings(shippingsId);
-		Towens towens= towensService.firstByIdTowens(towenId);
+		Towens towens = towensService.firstByIdTowens(towenId);
 
 		shippings.setTowen(towens);
 
