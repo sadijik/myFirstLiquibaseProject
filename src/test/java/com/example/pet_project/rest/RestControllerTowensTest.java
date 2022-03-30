@@ -82,7 +82,6 @@ class RestControllerTowensTest extends PetProjectApplicationTests {
 
 	@Test
 	void findByIdTowensException() throws Exception {
-
 		Long id = 2L;
 
 		mvc.perform(MockMvcRequestBuilders.get("/api/v2/findtowens{id}", id))
